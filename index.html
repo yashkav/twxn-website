@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>twxn — find your beauty twin</title>
+<meta name="description" content="twxn matches you to your beauty twin, someone with your exact skin, hair, and concerns, so you only see products that actually work for you. join the waitlist." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ivory:#FBFAF7;
+    --ivory-2:#F0EEE9;
+    --navy:#141414;
+    --navy-deep:#0A0A0A;
+    --rose:#9B9690;
+    --rose-soft:#C9C5BE;
+    --line:rgba(20,20,20,0.13);
+    --muted:#6f6b66;
+    --brand:#1B2C66;
+    --brand-soft:#8B96CE;
+    --maxw:1240px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Inter',sans-serif;background:var(--ivory);color:var(--navy);line-height:1.65;-webkit-font-smoothing:antialiased;font-weight:400;}
+  a{text-decoration:none;color:inherit;}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 36px;}
+  .serif{font-family:'Cormorant Garamond',serif;}
+  .italic{font-style:italic;}
+
+  /* tracked label */
+  .label{font-family:'Inter';font-weight:500;font-size:12px;letter-spacing:0.34em;text-transform:uppercase;color:var(--rose);}
+
+  /* buttons */
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:'Inter';font-weight:500;
+    font-size:13px;letter-spacing:0.18em;text-transform:uppercase;padding:18px 38px;border-radius:0;border:1px solid var(--navy);
+    background:var(--navy);color:var(--ivory);cursor:pointer;transition:.35s ease;}
+  .btn:hover{background:transparent;color:var(--navy);}
+  .btn-line{background:transparent;color:var(--navy);}
+  .btn-line:hover{background:var(--navy);color:var(--ivory);}
+
+  /* announcement bar */
+  .topbar{background:var(--navy);color:var(--ivory);text-align:center;font-family:'Inter';font-weight:400;
+    font-size:12px;letter-spacing:0.24em;text-transform:uppercase;padding:11px 16px;}
+  .topbar a{color:var(--rose-soft);border-bottom:1px solid rgba(230,201,194,0.45);padding-bottom:2px;}
+
+  /* nav */
+  nav{position:sticky;top:0;z-index:60;background:rgba(250,246,238,0.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
+  .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:86px;}
+  .nav-left{display:flex;gap:40px;}
+  .nav-left a{font-family:'Inter';font-weight:400;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--navy);opacity:0.8;transition:.25s;}
+  .nav-left a:hover{opacity:1;}
+  .logo{font-family:'Inter';font-weight:700;font-size:30px;letter-spacing:-0.04em;color:var(--brand);text-align:center;}
+  .nav-right{display:flex;justify-content:flex-end;}
+  .nav-right a{font-family:'Inter';font-weight:500;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--navy);
+    border-bottom:1px solid var(--navy);padding-bottom:3px;transition:.25s;}
+  .nav-right a:hover{color:var(--rose);border-color:var(--rose);}
+
+  /* hero */
+  .hero{padding:90px 0 70px;position:relative;overflow:hidden;}
+  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;}
+  .hero .label{margin-bottom:30px;display:block;}
+  .hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:98px;line-height:0.98;letter-spacing:-0.01em;color:var(--navy);}
+  .hero h1 .italic{font-style:italic;font-weight:500;}
+  .hero .lead{font-size:20px;font-weight:300;color:var(--muted);max-width:480px;margin-top:34px;line-height:1.7;}
+  .hero-cta{margin-top:46px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
+  .hero-note{font-family:'Inter';font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);}
+
+  /* phone mockup */
+  .phone-stage{display:flex;justify-content:center;position:relative;}
+  .phone-stage::before{content:'';position:absolute;width:520px;height:520px;border-radius:50%;
+    background:radial-gradient(circle, rgba(190,186,180,0.45) 0%, rgba(190,186,180,0) 70%);z-index:0;}
+  .phone{position:relative;z-index:2;width:330px;height:670px;background:var(--navy);border-radius:46px;padding:13px;
+    box-shadow:0 40px 90px rgba(27,35,71,0.28);}
+  .phone-screen{width:100%;height:100%;background:var(--ivory);border-radius:34px;overflow:hidden;padding:40px 30px;display:flex;flex-direction:column;}
+  .ps-label{font-family:'Inter';font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--rose);text-align:center;}
+  .ps-match{text-align:center;margin-top:26px;}
+  .ps-match .pct{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:96px;line-height:1;color:var(--navy);}
+  .ps-match .m{font-family:'Inter';font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
+  .ps-attrs{text-align:center;font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--navy);margin-top:18px;line-height:1.5;opacity:0.85;}
+  .ps-rule{height:1px;background:var(--line);margin:30px 4px 24px;}
+  .ps-hg{font-family:'Inter';font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--rose);margin-bottom:18px;}
+  .ps-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);}
+  .ps-row:last-child{border-bottom:none;}
+  .ps-row .nm{display:flex;align-items:center;gap:13px;font-family:'Cormorant Garamond',serif;font-size:23px;color:var(--navy);}
+  .ps-dot{width:30px;height:30px;border-radius:50%;background:var(--rose-soft);}
+  .ps-row .sc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--rose);}
+
+  /* section base */
+  section.block{padding:120px 0;}
+  .center{text-align:center;}
+  .center .label{display:block;margin-bottom:26px;}
+  h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:60px;line-height:1.08;letter-spacing:-0.01em;color:var(--navy);}
+  h2 .italic{font-style:italic;font-weight:500;}
+  .lead-c{font-size:21px;font-weight:300;color:var(--muted);max-width:680px;margin:30px auto 0;line-height:1.75;}
+
+  /* intro statement */
+  .intro{background:var(--ivory-2);}
+  .intro .statement{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;line-height:1.4;color:var(--navy);max-width:920px;margin:0 auto;text-align:center;}
+  .intro .statement .italic{font-style:italic;color:var(--rose);}
+
+  /* how it works (Beli-style trio) */
+  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:80px;border-top:1px solid var(--line);}
+  .tcell{padding:54px 40px 0;border-right:1px solid var(--line);}
+  .tcell:last-child{border-right:none;}
+  .tcell .tnum{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:56px;color:var(--rose);line-height:1;}
+  .tcell h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;color:var(--navy);margin:22px 0 16px;}
+  .tcell p{font-size:17px;font-weight:300;color:var(--muted);line-height:1.7;}
+
+  /* why / pull quote */
+  .why{background:var(--navy);color:var(--ivory);}
+  .why .qwrap{max-width:980px;margin:0 auto;text-align:center;}
+  .why .label{color:var(--rose-soft);display:block;margin-bottom:34px;}
+  .why blockquote{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:58px;line-height:1.18;letter-spacing:-0.01em;color:var(--ivory);}
+  .why blockquote .italic{font-style:italic;color:var(--rose-soft);}
+  .why .qsub{margin-top:34px;font-size:18px;font-weight:300;color:rgba(250,246,238,0.62);letter-spacing:0.02em;}
+
+  /* match diagram */
+  .match-wrap{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:30px;max-width:720px;margin:66px auto 0;}
+  .match-wrap::before{content:'';position:absolute;left:15%;right:15%;top:70px;height:1px;
+    background:linear-gradient(90deg,var(--rose-soft),var(--rose),var(--rose-soft));z-index:0;}
+  .match-node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:18px;}
+  .avatar{width:140px;height:140px;border-radius:50%;border:1px solid rgba(20,20,20,0.10);
+    background:linear-gradient(150deg,#dcd9d3 0%,#efece7 55%,#d6d3ce 100%);}
+  .match-mid{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--ivory-2);padding:0 26px;}
+  .match-pct{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:72px;line-height:1;color:var(--navy);}
+  .cap{font-family:'Inter';font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--muted);}
+
+  /* step icons */
+  .ticon{width:44px;height:44px;color:var(--rose);}
+  .tcell .ticon{margin-bottom:4px;}
+
+  /* final cta */
+  .final{text-align:center;}
+  .final h2{font-size:72px;margin-bottom:18px;}
+  .final .lead-c{margin-bottom:44px;}
+
+  /* footer */
+  footer{background:var(--navy-deep);color:var(--ivory);padding:80px 0 44px;}
+  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;}
+  .foot-logo{font-family:'Inter';font-weight:700;font-size:38px;letter-spacing:-0.04em;color:var(--brand-soft);}
+  .foot-tag{font-weight:300;color:rgba(250,246,238,0.6);font-size:16px;margin-top:14px;max-width:320px;line-height:1.7;}
+  .foot-cols{display:flex;gap:64px;flex-wrap:wrap;}
+  .foot-col h4{font-family:'Inter';font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose-soft);margin-bottom:20px;}
+  .foot-col a{display:block;color:rgba(250,246,238,0.78);font-size:15px;font-weight:300;margin-bottom:13px;transition:.25s;}
+  .foot-col a:hover{color:var(--ivory);}
+  .foot-bottom{border-top:1px solid rgba(255,255,255,0.14);margin-top:60px;padding-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
+    font-size:13px;font-weight:300;color:rgba(250,246,238,0.45);letter-spacing:0.04em;}
+
+  /* responsive */
+  @media (max-width:900px){
+    .nav-left{display:none;}
+    .nav-inner{grid-template-columns:1fr auto;}
+    .nav-right{display:none;}
+    .logo{text-align:left;}
+    .hero{padding:54px 0 40px;}
+    .hero-grid{grid-template-columns:1fr;gap:54px;}
+    .hero h1{font-size:62px;}
+    .phone{width:280px;height:570px;}
+    h2{font-size:42px;}
+    .intro .statement{font-size:30px;}
+    .trio{grid-template-columns:1fr;}
+    .tcell{border-right:none;border-bottom:1px solid var(--line);padding:40px 0;}
+    .why blockquote{font-size:36px;}
+    .match-wrap{grid-template-columns:1fr;gap:24px;justify-items:center;}
+    .match-wrap::before{display:none;}
+    .match-mid{background:transparent;padding:0;}
+    .avatar{width:112px;height:112px;}
+    .final h2{font-size:48px;}
+    section.block{padding:80px 0;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCEMENT BAR -->
+<div class="topbar">early access closing soon</div>
+
+<!-- NAV -->
+<nav>
+  <div class="wrap nav-inner">
+    <div class="nav-left">
+      <a href="#what">what is twxn</a>
+      <a href="#how">how it works</a>
+    </div>
+    <a href="#" class="logo">twxn</a>
+    <div class="nav-right">
+      <a href="https://twxn-waitlist.beehiiv.com/">join the waitlist</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="label">the beauty matchmaker</span>
+      <h1>find your<br/><span class="italic">beauty twin</span>.</h1>
+      <p class="lead">matched to your skin, hair, and concerns. you only see what works.</p>
+      <div class="hero-cta">
+        <a href="https://twxn-waitlist.beehiiv.com/" class="btn">join the waitlist</a>
+        <span class="hero-note">early access closing soon</span>
+      </div>
+    </div>
+    <div class="phone-stage">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="ps-label">your beauty twin</div>
+          <div class="ps-match">
+            <div class="pct">96%</div>
+            <div class="m">match</div>
+          </div>
+          <div class="ps-attrs">combination skin<br/>2b wavy hair · hormonal acne</div>
+          <div class="ps-rule"></div>
+          <div class="ps-hg">her holy grails</div>
+          <div class="ps-row"><div class="nm"><span class="ps-dot"></span>the cleanser</div><div class="sc">9.6</div></div>
+          <div class="ps-row"><div class="nm"><span class="ps-dot"></span>the serum</div><div class="sc">9.4</div></div>
+          <div class="ps-row"><div class="nm"><span class="ps-dot"></span>the spf</div><div class="sc">9.8</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- WHAT TWXN DOES -->
+<section class="block intro" id="what">
+  <div class="wrap center">
+    <span class="label">what twxn is</span>
+    <p class="statement">the only recommendations that matter come from people <span class="italic">exactly like you</span>.</p>
+    <div class="match-wrap">
+      <div class="match-node"><div class="avatar"></div><span class="cap">you</span></div>
+      <div class="match-mid"><div class="match-pct">96%</div><span class="cap">match</span></div>
+      <div class="match-node"><div class="avatar"></div><span class="cap">your beauty twin</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="block" id="how">
+  <div class="wrap">
+    <div class="center">
+      <span class="label">how it works</span>
+    </div>
+    <div class="trio">
+      <div class="tcell">
+        <svg class="ticon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="17" r="8"/><path d="M10 40c0-8 6.3-13 14-13s14 5 14 13"/></svg>
+        <h3>build your profile</h3>
+        <p>skin, hair, undertone, concerns.</p>
+      </div>
+      <div class="tcell">
+        <svg class="ticon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="22" r="8"/><circle cx="30" cy="22" r="8"/></svg>
+        <h3>meet your beauty twin</h3>
+        <p>matched to people exactly like you.</p>
+      </div>
+      <div class="tcell">
+        <svg class="ticon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17h22l-2 22H15z"/><path d="M19 17v-3a5 5 0 0 1 10 0v3"/><path d="M20 27l3 3 6-6"/></svg>
+        <h3>buy what works</h3>
+        <p>shop your twin's highest rated.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WHY TWXN -->
+<section class="block why" id="why">
+  <div class="wrap qwrap">
+    <span class="label">why twxn</span>
+    <blockquote>we match you to people <span class="italic">like you</span>.</blockquote>
+    <p class="qsub">save your time, your money, and find the right products for you.</p>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="block final">
+  <div class="wrap">
+    <span class="label">join early</span>
+    <h2>your beauty twin is<br/><span class="italic">already out there</span>.</h2>
+    <p class="lead-c">be among the first to find them.</p>
+    <a href="https://twxn-waitlist.beehiiv.com/" class="btn">join the waitlist</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div>
+        <div class="foot-logo">twxn</div>
+        <p class="foot-tag">beauty, finally matched to you.</p>
+      </div>
+      <div class="foot-cols">
+        <div class="foot-col">
+          <h4>explore</h4>
+          <a href="#what">what is twxn</a>
+          <a href="#how">how it works</a>
+          <a href="https://twxn-waitlist.beehiiv.com/">join the waitlist</a>
+        </div>
+        <div class="foot-col">
+          <h4>follow</h4>
+          <a href="https://www.tiktok.com/@twxn.app" target="_blank">tiktok</a>
+          <a href="https://www.instagram.com/" target="_blank">instagram</a>
+        </div>
+        <div class="foot-col">
+          <h4>contact</h4>
+          <a href="mailto:support@twxnapp.com">support@twxnapp.com</a>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>© 2026 Twxn LLC. all rights reserved.</span>
+      <span>made for people who are tired of guessing.</span>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
