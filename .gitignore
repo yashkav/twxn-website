@@ -1,0 +1,8 @@
+# internal working docs, not for the public repo
+CLAUDE-DESIGN-PROMPT.md
+
+# scratch
+_preview.html
+*.tmp
+.DS_Store
+Thumbs.db

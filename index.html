@@ -3,319 +3,680 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>twxn App | find your beauty twin</title>
+<title>twxn | find your beauty twin</title>
 <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-<link rel="alternate icon" href="favicon.svg" />
-<meta name="description" content="twxn matches you to your beauty twin, someone with your exact skin, hair, and concerns, so you only see products that actually work for you. join the waitlist." />
+<meta name="description" content="twxn matches you to people with your exact skin and hair, so you only see the skincare, haircare, and makeup that actually works for you. join the early access waitlist." />
+<meta property="og:title" content="twxn | find your beauty twin" />
+<meta property="og:description" content="products for people like you, recommended by people like you." />
+<meta property="og:image" content="assets/twxn-wordmark.png" />
+<meta name="theme-color" content="#35459B" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 <style>
   :root{
-    --ivory:#FBFAF7;
-    --ivory-2:#F0EEE9;
-    --navy:#141414;
-    --navy-deep:#0A0A0A;
-    --rose:#9B9690;
-    --rose-soft:#C9C5BE;
-    --line:rgba(20,20,20,0.13);
-    --muted:#6f6b66;
-    --brand:#1B2C66;
-    --brand-soft:#8B96CE;
+    --white:#FFFFFF;
+    --off:#FAFAFA;
+    --off-2:#F2F2F3;
+    --ink:#101014;
+    --ink-2:#3A3A40;
+    --grey:#76767E;
+    --indigo:#35459B;
+    --indigo-d:#2A3780;
+    --indigo-l:#EEF0F9;
+    --sage:#3F7A5A;
+    --terra:#B4544A;
+    --line:rgba(16,16,20,0.10);
+    --line-2:rgba(16,16,20,0.06);
     --maxw:1240px;
   }
   *{margin:0;padding:0;box-sizing:border-box;}
   html{scroll-behavior:smooth;}
-  body{font-family:'Inter',sans-serif;background:var(--ivory);color:var(--navy);line-height:1.65;-webkit-font-smoothing:antialiased;font-weight:400;}
+  body{font-family:'Inter',-apple-system,BlinkMacSystemFont,sans-serif;background:var(--white);color:var(--ink);
+    line-height:1.55;-webkit-font-smoothing:antialiased;font-weight:400;overflow-x:hidden;}
   a{text-decoration:none;color:inherit;}
-  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 36px;}
-  .serif{font-family:'Cormorant Garamond',serif;}
-  .italic{font-style:italic;}
+  img{max-width:100%;display:block;}
+  button{font-family:inherit;}
+  ::selection{background:var(--indigo);color:#fff;}
+  :focus-visible{outline:2px solid var(--indigo);outline-offset:3px;}
 
-  /* tracked label */
-  .label{font-family:'Inter';font-weight:500;font-size:12px;letter-spacing:0.34em;text-transform:uppercase;color:var(--rose);}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 32px;}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.16em;text-transform:uppercase;color:var(--grey);}
+
+  /* reveal */
+  .reveal{opacity:1;transform:none;transition:opacity .8s cubic-bezier(.2,.7,.3,1), transform .8s cubic-bezier(.2,.7,.3,1);}
+  .js .reveal{opacity:0;transform:translateY(18px);}
+  .reveal.in{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.06s;} .reveal.d2{transition-delay:.12s;} .reveal.d3{transition-delay:.18s;} .reveal.d4{transition-delay:.24s;}
+  @media (prefers-reduced-motion:reduce){ .js .reveal{opacity:1;transform:none;} .mq-track{animation:none;} }
 
   /* buttons */
-  .btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;font-family:'Inter';font-weight:500;
-    font-size:13px;letter-spacing:0.18em;text-transform:uppercase;padding:18px 38px;border-radius:0;border:1px solid var(--navy);
-    background:var(--navy);color:var(--ivory);cursor:pointer;transition:.35s ease;}
-  .btn:hover{background:transparent;color:var(--navy);}
-  .btn-line{background:transparent;color:var(--navy);}
-  .btn-line:hover{background:var(--navy);color:var(--ivory);}
+  .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-size:14px;font-weight:500;
+    letter-spacing:-0.01em;padding:16px 32px;background:var(--ink);color:#fff;border:1px solid var(--ink);
+    border-radius:100px;cursor:pointer;transition:.25s ease;}
+  .btn:hover{background:var(--indigo);border-color:var(--indigo);}
+  .btn-o{background:transparent;color:var(--ink);border-color:var(--line);}
+  .btn-o:hover{background:var(--ink);color:#fff;border-color:var(--ink);}
 
-  /* announcement bar */
-  .topbar{background:var(--navy);color:var(--ivory);text-align:center;font-family:'Inter';font-weight:400;
-    font-size:12px;letter-spacing:0.24em;text-transform:uppercase;padding:11px 16px;}
-  .topbar a{color:var(--rose-soft);border-bottom:1px solid rgba(230,201,194,0.45);padding-bottom:2px;}
+  /* topbar */
+  .topbar{background:var(--ink);color:#fff;text-align:center;font-size:11.5px;font-weight:500;
+    letter-spacing:0.08em;padding:11px 16px;}
+  .topbar b{font-weight:600;}
+  .topbar em{font-style:normal;opacity:.55;margin:0 10px;}
 
   /* nav */
-  nav{position:sticky;top:0;z-index:60;background:rgba(250,246,238,0.86);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);}
-  .nav-inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;height:86px;}
-  .nav-left{display:flex;gap:40px;}
-  .nav-left a{font-family:'Inter';font-weight:400;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:var(--navy);opacity:0.8;transition:.25s;}
-  .nav-left a:hover{opacity:1;}
-  .logo{font-family:'Inter';font-weight:700;font-size:30px;letter-spacing:-0.04em;color:var(--brand);text-align:center;}
-  .nav-right{display:flex;justify-content:flex-end;}
-  .nav-right a{font-family:'Inter';font-weight:500;font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:var(--navy);
-    border-bottom:1px solid var(--navy);padding-bottom:3px;transition:.25s;}
-  .nav-right a:hover{color:var(--rose);border-color:var(--rose);}
+  nav{position:sticky;top:0;z-index:60;background:rgba(255,255,255,0.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-2);}
+  .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;gap:24px;}
+  .nav-logo img{height:22px;width:auto;}
+  .nav-mid{display:flex;gap:32px;}
+  .nav-mid a{font-size:14px;font-weight:450;color:var(--ink-2);transition:.2s;}
+  .nav-mid a:hover{color:var(--indigo);}
+  .nav-cta{font-size:13.5px;font-weight:500;background:var(--ink);color:#fff;padding:11px 22px;border-radius:100px;transition:.25s;}
+  .nav-cta:hover{background:var(--indigo);}
 
   /* hero */
-  .hero{padding:90px 0 70px;position:relative;overflow:hidden;}
-  .hero-grid{display:grid;grid-template-columns:1.05fr 0.95fr;gap:60px;align-items:center;}
-  .hero .label{margin-bottom:30px;display:block;}
-  .hero h1{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:98px;line-height:0.98;letter-spacing:-0.01em;color:var(--navy);}
-  .hero h1 .italic{font-style:italic;font-weight:500;}
-  .hero .lead{font-size:20px;font-weight:300;color:var(--muted);max-width:480px;margin-top:34px;line-height:1.7;}
-  .hero-cta{margin-top:46px;display:flex;align-items:center;gap:26px;flex-wrap:wrap;}
-  .hero-note{font-family:'Inter';font-size:12px;letter-spacing:0.16em;text-transform:uppercase;color:var(--muted);}
+  .hero{padding:80px 0 96px;}
+  .hero-grid{display:grid;grid-template-columns:1.02fr 0.98fr;gap:64px;align-items:center;}
+  .hero h1{font-size:clamp(48px,7vw,92px);font-weight:600;letter-spacing:-0.045em;line-height:0.96;color:var(--ink);}
+  .hero h1 em{font-style:normal;color:var(--indigo);}
+  .hero .lead{font-size:18px;font-weight:400;color:var(--grey);max-width:440px;margin-top:26px;line-height:1.62;}
+  .hero-cta{margin-top:36px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;}
+  .hero-meta{margin-top:40px;padding-top:26px;border-top:1px solid var(--line-2);display:flex;align-items:center;gap:14px;}
+  .stack{display:flex;}
+  .stack img{width:36px;height:36px;border-radius:50%;object-fit:cover;border:2px solid #fff;margin-left:-10px;}
+  .stack img:first-child{margin-left:0;}
+  .hero-meta p{font-size:13px;color:var(--grey);line-height:1.45;}
+  .hero-meta b{color:var(--ink);font-weight:550;}
 
-  /* phone mockup */
-  .phone-stage{display:flex;justify-content:center;position:relative;}
-  .phone-stage::before{content:'';position:absolute;width:520px;height:520px;border-radius:50%;
-    background:radial-gradient(circle, rgba(190,186,180,0.45) 0%, rgba(190,186,180,0) 70%);z-index:0;}
-  .phone{position:relative;z-index:2;width:330px;height:670px;background:var(--navy);border-radius:46px;padding:13px;
-    box-shadow:0 40px 90px rgba(27,35,71,0.28);}
-  .phone-screen{width:100%;height:100%;background:var(--ivory);border-radius:34px;overflow:hidden;padding:40px 30px;display:flex;flex-direction:column;}
-  .ps-label{font-family:'Inter';font-size:10px;letter-spacing:0.28em;text-transform:uppercase;color:var(--rose);text-align:center;}
-  .ps-match{text-align:center;margin-top:26px;}
-  .ps-match .pct{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:96px;line-height:1;color:var(--navy);}
-  .ps-match .m{font-family:'Inter';font-size:11px;letter-spacing:0.3em;text-transform:uppercase;color:var(--muted);margin-top:4px;}
-  .ps-attrs{text-align:center;font-family:'Cormorant Garamond',serif;font-size:21px;color:var(--navy);margin-top:18px;line-height:1.5;opacity:0.85;}
-  .ps-rule{height:1px;background:var(--line);margin:30px 4px 24px;}
-  .ps-hg{font-family:'Inter';font-size:10px;letter-spacing:0.26em;text-transform:uppercase;color:var(--rose);margin-bottom:18px;}
-  .ps-row{display:flex;align-items:center;justify-content:space-between;padding:13px 0;border-bottom:1px solid var(--line);}
-  .ps-row:last-child{border-bottom:none;}
-  .ps-row .nm{display:flex;align-items:center;gap:13px;font-family:'Cormorant Garamond',serif;font-size:23px;color:var(--navy);}
-  .ps-dot{width:30px;height:30px;border-radius:50%;background:var(--rose-soft);}
-  .ps-row .sc{font-family:'Cormorant Garamond',serif;font-style:italic;font-size:24px;color:var(--rose);}
+  /* phone */
+  .stage{display:flex;justify-content:center;position:relative;}
+  .stage::before{content:'';position:absolute;inset:6% 8%;background:var(--off);border-radius:28px;z-index:0;}
+  .phone{position:relative;z-index:2;width:330px;background:var(--ink);border-radius:42px;padding:9px;
+    box-shadow:0 40px 80px -30px rgba(16,16,20,0.42);}
+  .screen{background:#fff;border-radius:34px;overflow:hidden;padding:38px 22px 24px;position:relative;}
+  .notch{position:absolute;top:16px;left:50%;transform:translateX(-50%);width:100px;height:22px;background:var(--ink);border-radius:0 0 14px 14px;z-index:5;}
+  .sc-top{display:flex;align-items:center;gap:12px;}
+  .sc-top img{width:48px;height:48px;border-radius:50%;object-fit:cover;}
+  .sc-top .st{flex:1;min-width:0;}
+  .sc-top .st .a{font-size:10px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--grey);}
+  .sc-top .st .b{font-size:16px;font-weight:600;letter-spacing:-0.02em;margin-top:2px;}
+  .sc-pct{background:var(--indigo);color:#fff;border-radius:10px;padding:7px 11px;text-align:center;flex-shrink:0;}
+  .sc-pct .n{font-size:17px;font-weight:600;letter-spacing:-0.02em;line-height:1;}
+  .sc-pct .m{font-size:7.5px;font-weight:500;letter-spacing:0.16em;text-transform:uppercase;opacity:.8;margin-top:2px;}
+  .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:18px;}
+  .tags span{font-size:11px;font-weight:450;color:var(--indigo);background:var(--indigo-l);padding:5px 11px;border-radius:6px;}
+  .sc-lab{font-size:10px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--grey);margin:22px 0 4px;}
+  .row{display:flex;align-items:center;gap:11px;padding:10px 0;border-bottom:1px solid var(--line-2);}
+  .row:last-child{border-bottom:none;}
+  .sw{width:30px;height:36px;border-radius:5px;flex-shrink:0;}
+  .sw1{background:#E8DCC8;} .sw2{background:#EBD3CE;} .sw3{background:#CDD5E9;} .sw4{background:#D7E2D8;}
+  .row .rt{flex:1;min-width:0;}
+  .row .rt .a{font-size:14.5px;font-weight:500;letter-spacing:-0.015em;}
+  .row .rt .b{font-size:11px;color:var(--grey);}
+  .chip{font-size:12px;font-weight:600;padding:3px 9px;border-radius:6px;flex-shrink:0;}
+  .chip.good{color:var(--sage);background:rgba(63,122,90,0.1);}
+  .chip.warn{color:var(--terra);background:rgba(180,84,74,0.1);}
 
-  /* section base */
+  /* categories */
+  .cats{border-top:1px solid var(--line-2);border-bottom:1px solid var(--line-2);background:#fff;}
+  .cats .wrap{display:flex;align-items:center;justify-content:center;gap:clamp(18px,4vw,44px);padding-top:30px;padding-bottom:30px;flex-wrap:wrap;}
+  .cats span{font-size:clamp(24px,3.4vw,40px);font-weight:600;letter-spacing:-0.038em;color:var(--ink);}
+  .cats i{width:5px;height:5px;border-radius:50%;background:var(--indigo);flex-shrink:0;}
+
+  /* marquee */
+  .marquee{background:var(--indigo);color:#fff;padding:14px 0;overflow:hidden;white-space:nowrap;}
+  .mq-track{display:inline-flex;align-items:center;gap:26px;animation:mq 32s linear infinite;}
+  @keyframes mq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+  .mq-track span{font-size:12.5px;font-weight:500;letter-spacing:0.14em;text-transform:uppercase;}
+  .mq-track i{width:4px;height:4px;border-radius:50%;background:rgba(255,255,255,0.5);flex-shrink:0;}
+
+  /* sections */
   section.block{padding:120px 0;}
   .center{text-align:center;}
-  .center .label{display:block;margin-bottom:26px;}
-  h2{font-family:'Cormorant Garamond',serif;font-weight:400;font-size:60px;line-height:1.08;letter-spacing:-0.01em;color:var(--navy);}
-  h2 .italic{font-style:italic;font-weight:500;}
-  .lead-c{font-size:21px;font-weight:300;color:var(--muted);max-width:680px;margin:30px auto 0;line-height:1.75;}
+  h2{font-size:clamp(34px,4.6vw,58px);font-weight:600;letter-spacing:-0.04em;line-height:1.02;}
+  h2 em{font-style:normal;color:var(--indigo);}
+  .sub{font-size:18px;color:var(--grey);max-width:560px;margin:20px auto 0;line-height:1.6;}
+  .center .eyebrow{display:block;margin-bottom:18px;}
 
-  /* intro statement */
-  .intro{background:var(--ivory-2);}
-  .intro .statement{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:42px;line-height:1.4;color:var(--navy);max-width:920px;margin:0 auto;text-align:center;}
-  .intro .statement .italic{font-style:italic;color:var(--rose);}
+  /* statement + match */
+  .statement{font-size:clamp(28px,3.6vw,46px);font-weight:500;letter-spacing:-0.035em;line-height:1.16;max-width:880px;margin:0 auto;text-align:center;}
+  .statement em{font-style:normal;color:var(--indigo);}
+  .mrow{display:flex;align-items:center;justify-content:center;gap:40px;margin-top:64px;flex-wrap:wrap;}
+  .mnode{display:flex;flex-direction:column;align-items:center;gap:12px;}
+  .mnode img{width:132px;height:132px;border-radius:50%;object-fit:cover;}
+  .mnode span{font-size:11.5px;font-weight:600;letter-spacing:0.12em;text-transform:uppercase;color:var(--grey);}
+  .mmid{text-align:center;}
+  .mmid .p{font-size:52px;font-weight:600;letter-spacing:-0.04em;color:var(--indigo);line-height:1;}
+  .mmid .s{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);margin-top:4px;}
 
-  /* how it works (Beli-style trio) */
-  .trio{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin-top:80px;border-top:1px solid var(--line);}
-  .tcell{padding:54px 40px 0;border-right:1px solid var(--line);}
-  .tcell:last-child{border-right:none;}
-  .tcell .tnum{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:400;font-size:56px;color:var(--rose);line-height:1;}
-  .tcell h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:34px;color:var(--navy);margin:22px 0 16px;}
-  .tcell p{font-size:17px;font-weight:300;color:var(--muted);line-height:1.7;}
+  /* how it works */
+  .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:64px;}
+  .step{background:var(--white);border:1px solid var(--line-2);border-radius:18px;padding:34px 30px 30px;transition:.3s ease;}
+  .step:hover{border-color:var(--line);transform:translateY(-4px);box-shadow:0 18px 40px -24px rgba(16,16,20,0.28);}
+  .step .n{font-size:12px;font-weight:600;color:var(--indigo);letter-spacing:0.06em;}
+  .step svg{width:30px;height:30px;color:var(--indigo);margin:18px 0 14px;}
+  .step h3{font-size:21px;font-weight:600;letter-spacing:-0.025em;margin-bottom:9px;}
+  .step p{font-size:15px;color:var(--grey);line-height:1.6;}
 
-  /* why / pull quote */
-  .why{background:var(--navy);color:var(--ivory);}
-  .why .qwrap{max-width:980px;margin:0 auto;text-align:center;}
-  .why .label{color:var(--rose-soft);display:block;margin-bottom:34px;}
-  .why blockquote{font-family:'Cormorant Garamond',serif;font-weight:300;font-size:58px;line-height:1.18;letter-spacing:-0.01em;color:var(--ivory);}
-  .why blockquote .italic{font-style:italic;color:var(--rose-soft);}
-  .why .qsub{margin-top:34px;font-size:18px;font-weight:300;color:rgba(250,246,238,0.62);letter-spacing:0.02em;}
+  /* demo */
+  .demo{background:var(--off);}
+  .demo-grid{display:grid;grid-template-columns:0.88fr 1.12fr;gap:52px;align-items:start;margin-top:58px;}
+  .bgroup{margin-bottom:30px;}
+  .bgroup .bl{font-size:11.5px;font-weight:600;letter-spacing:0.13em;text-transform:uppercase;color:var(--grey);margin-bottom:12px;}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;}
+  .chips button{font-size:14px;font-weight:450;color:var(--ink);background:#fff;border:1px solid var(--line);
+    border-radius:100px;padding:10px 19px;cursor:pointer;transition:.22s ease;}
+  .chips button:hover{border-color:var(--indigo);color:var(--indigo);}
+  .chips button[aria-pressed="true"]{background:var(--indigo);border-color:var(--indigo);color:#fff;}
+  .bnote{font-size:13px;color:var(--grey);margin-top:4px;}
 
-  /* match diagram */
-  .match-wrap{position:relative;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:30px;max-width:720px;margin:66px auto 0;}
-  .match-wrap::before{content:'';position:absolute;left:15%;right:15%;top:70px;height:1px;
-    background:linear-gradient(90deg,var(--rose-soft),var(--rose),var(--rose-soft));z-index:0;}
-  .match-node{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:18px;}
-  .avatar{width:140px;height:140px;border-radius:50%;border:1px solid rgba(20,20,20,0.10);
-    background:linear-gradient(150deg,#dcd9d3 0%,#efece7 55%,#d6d3ce 100%);}
-  .match-mid{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:6px;background:var(--ivory-2);padding:0 26px;}
-  .match-pct{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:72px;line-height:1;color:var(--navy);}
-  .cap{font-family:'Inter';font-size:11px;letter-spacing:0.26em;text-transform:uppercase;color:var(--muted);}
+  .result{background:#fff;border:1px solid var(--line-2);border-radius:20px;padding:30px 30px 26px;
+    box-shadow:0 22px 50px -30px rgba(16,16,20,0.3);}
+  .res-head{display:flex;align-items:center;gap:14px;}
+  .res-face{width:64px;height:64px;border-radius:50%;object-fit:cover;}
+  .res-head .rh{flex:1;min-width:0;}
+  .res-head .rl{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);}
+  .res-head .rn{font-size:20px;font-weight:600;letter-spacing:-0.03em;margin-top:3px;}
+  .res-pct{text-align:right;flex-shrink:0;}
+  .res-pct .p{font-size:34px;font-weight:600;letter-spacing:-0.04em;color:var(--indigo);line-height:1;}
+  .res-pct .s{font-size:9.5px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);margin-top:2px;}
+  .res-tags{display:flex;flex-wrap:wrap;gap:7px;margin-top:20px;}
+  .res-tags span{font-size:12px;font-weight:450;color:var(--indigo);background:var(--indigo-l);padding:6px 12px;border-radius:6px;}
+  .res-sec{font-size:10px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:var(--grey);margin:24px 0 2px;}
+  .res-row{display:flex;align-items:center;gap:13px;padding:12px 0;border-bottom:1px solid var(--line-2);}
+  .res-row:last-child{border-bottom:none;}
+  .res-sw{width:32px;height:40px;border-radius:6px;flex-shrink:0;}
+  /* makeup shade swatches, by undertone */
+  .mk-cool{background:#D9B6A3;} .mk-berry{background:#B4647A;}
+  .mk-neutral{background:#D8B49A;} .mk-rose{background:#C98A8A;}
+  .mk-warm{background:#D2A578;} .mk-peach{background:#DE9273;}
+  .mk-olive{background:#C09A6C;} .mk-terra{background:#C0704F;}
+  .res-row .rt{flex:1;min-width:0;}
+  .res-row .rt .a{font-size:16px;font-weight:500;letter-spacing:-0.02em;}
+  .res-row .rt .b{font-size:12px;color:var(--grey);}
+  .res-foot{margin-top:22px;padding-top:20px;border-top:1px solid var(--line-2);display:flex;align-items:center;
+    justify-content:space-between;gap:14px;flex-wrap:wrap;}
+  .res-foot p{font-size:13px;color:var(--grey);max-width:290px;}
+  .fade-swap{animation:fs .34s ease;}
+  @keyframes fs{from{opacity:0;transform:translateY(5px);}to{opacity:1;transform:none;}}
 
-  /* step icons */
-  .ticon{width:44px;height:44px;color:var(--rose);}
-  .tcell .ticon{margin-bottom:4px;}
+  /* community */
+  .comm-grid{display:grid;grid-template-columns:1fr 1.05fr;gap:60px;align-items:center;}
+  .comm-copy p{font-size:17px;color:var(--grey);line-height:1.65;max-width:430px;margin-top:20px;}
+  .comm-stats{display:flex;gap:40px;margin-top:32px;}
+  .comm-stats .k{font-size:30px;font-weight:600;letter-spacing:-0.035em;color:var(--indigo);}
+  .comm-stats .v{font-size:13px;color:var(--grey);margin-top:2px;}
+  .cluster{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .face{position:relative;border-radius:14px;overflow:hidden;aspect-ratio:1;}
+  .face img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .face:hover img{transform:scale(1.05);}
+  .face .badge{position:absolute;bottom:8px;left:8px;background:rgba(255,255,255,0.95);border-radius:6px;
+    font-size:11px;font-weight:600;color:var(--indigo);padding:3px 8px;}
+  .face.hl{outline:2px solid var(--indigo);outline-offset:2px;}
 
-  /* final cta */
-  .final{text-align:center;}
-  .final h2{font-size:72px;margin-bottom:18px;}
-  .final .lead-c{margin-bottom:44px;}
+  /* social / see it in action */
+  .social{background:var(--off);overflow:hidden;}
+  .social-grid{display:grid;grid-template-columns:auto 1fr;gap:56px;align-items:center;margin-top:56px;}
+  .vphone{width:288px;background:var(--ink);border-radius:38px;padding:8px;flex-shrink:0;
+    box-shadow:0 36px 70px -30px rgba(16,16,20,0.45);position:relative;}
+  .vphone video{width:100%;display:block;border-radius:31px;background:#000;}
+  .vphone .vnotch{position:absolute;top:14px;left:50%;transform:translateX(-50%);width:88px;height:20px;
+    background:var(--ink);border-radius:0 0 12px 12px;z-index:3;}
+  .social-copy p{font-size:17px;color:var(--grey);line-height:1.65;max-width:440px;margin-top:18px;}
+  .tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin-top:28px;max-width:460px;}
+  .tile{border-radius:12px;overflow:hidden;border:1px solid var(--line-2);background:#fff;aspect-ratio:1;}
+  .tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s ease;}
+  .tile:hover img{transform:scale(1.04);}
+  .social-link{display:inline-flex;align-items:center;gap:7px;margin-top:26px;font-size:14.5px;
+    font-weight:500;color:var(--indigo);border-bottom:1px solid var(--indigo);padding-bottom:2px;}
+
+  /* why */
+  .why{background:var(--indigo);color:#fff;}
+  .why .eyebrow{color:rgba(255,255,255,0.6);}
+  .why h2{max-width:960px;margin:0 auto;}
+  .why h2 em{color:#C3CBEC;}
+  .why .sub{color:rgba(255,255,255,0.72);}
+
+  /* values */
+  .vals{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:60px;}
+  .val{border-top:1px solid var(--line);padding-top:24px;}
+  .val h4{font-size:19px;font-weight:600;letter-spacing:-0.025em;margin-bottom:8px;}
+  .val p{font-size:15px;color:var(--grey);line-height:1.6;}
+
+  /* final */
+  .final{background:var(--off);text-align:center;}
+  .final h2{margin-bottom:16px;}
+  .final .sub{margin-bottom:34px;}
 
   /* footer */
-  footer{background:var(--navy-deep);color:var(--ivory);padding:80px 0 44px;}
-  .foot-top{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap;}
-  .foot-logo{font-family:'Inter';font-weight:700;font-size:38px;letter-spacing:-0.04em;color:var(--brand-soft);}
-  .foot-tag{font-weight:300;color:rgba(250,246,238,0.6);font-size:16px;margin-top:14px;max-width:320px;line-height:1.7;}
-  .foot-cols{display:flex;gap:64px;flex-wrap:wrap;}
-  .foot-col h4{font-family:'Inter';font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:var(--rose-soft);margin-bottom:20px;}
-  .foot-col a{display:block;color:rgba(250,246,238,0.78);font-size:15px;font-weight:300;margin-bottom:13px;transition:.25s;}
-  .foot-col a:hover{color:var(--ivory);}
-  .foot-bottom{border-top:1px solid rgba(255,255,255,0.14);margin-top:60px;padding-top:30px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;
-    font-size:13px;font-weight:300;color:rgba(250,246,238,0.45);letter-spacing:0.04em;}
+  footer{background:var(--ink);color:#fff;padding:72px 0 36px;}
+  .foot-top{display:flex;justify-content:space-between;gap:44px;flex-wrap:wrap;}
+  .foot-logo img{height:24px;width:auto;}
+  .foot-tag{font-size:14.5px;color:rgba(255,255,255,0.55);margin-top:16px;max-width:290px;line-height:1.6;}
+  .foot-cols{display:flex;gap:60px;flex-wrap:wrap;}
+  .foot-col h5{font-size:11px;font-weight:600;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.45);margin-bottom:16px;}
+  .foot-col a{display:block;font-size:14.5px;color:rgba(255,255,255,0.8);margin-bottom:11px;transition:.2s;}
+  .foot-col a:hover{color:#fff;}
+  .foot-bot{border-top:1px solid rgba(255,255,255,0.12);margin-top:52px;padding-top:24px;display:flex;
+    justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:12.5px;color:rgba(255,255,255,0.4);}
 
-  /* responsive */
-  @media (max-width:900px){
-    .nav-left{display:none;}
-    .nav-inner{grid-template-columns:1fr auto;}
-    .nav-right{display:none;}
-    .logo{text-align:left;}
-    .hero{padding:54px 0 40px;}
-    .hero-grid{grid-template-columns:1fr;gap:54px;}
-    .hero h1{font-size:62px;}
-    .phone{width:280px;height:570px;}
-    h2{font-size:42px;}
-    .intro .statement{font-size:30px;}
-    .trio{grid-template-columns:1fr;}
-    .tcell{border-right:none;border-bottom:1px solid var(--line);padding:40px 0;}
-    .why blockquote{font-size:36px;}
-    .match-wrap{grid-template-columns:1fr;gap:24px;justify-items:center;}
-    .match-wrap::before{display:none;}
-    .match-mid{background:transparent;padding:0;}
-    .avatar{width:112px;height:112px;}
-    .final h2{font-size:48px;}
-    section.block{padding:80px 0;}
+  @media (max-width:940px){
+    .wrap{padding:0 20px;}
+    .nav-mid{display:none;}
+    .hero{padding:48px 0 64px;}
+    .hero-grid{grid-template-columns:1fr;gap:52px;}
+    .hero-cta,.hero-meta{justify-content:flex-start;}
+    section.block{padding:76px 0;}
+    .steps,.vals{grid-template-columns:1fr;}
+    .demo-grid,.comm-grid{grid-template-columns:1fr;gap:38px;}
+    .social-grid{grid-template-columns:1fr;gap:36px;justify-items:center;}
+    .social-copy{text-align:center;}
+    .social-copy p,.tiles{margin-left:auto;margin-right:auto;}
+    .vphone{width:250px;}
+    .mrow{gap:24px;}
+    .mnode img{width:104px;height:104px;}
+    .mmid .p{font-size:40px;}
+    .comm-stats{gap:28px;}
+  }
+  @media (max-width:420px){
+    .phone{width:296px;}
+    .res-foot{flex-direction:column;align-items:flex-start;}
   }
 </style>
+<script>document.documentElement.classList.add('js');</script>
 </head>
 <body>
 
-<!-- ANNOUNCEMENT BAR -->
-<div class="topbar">early access closing soon</div>
+<div class="topbar">the future of beauty shopping <em>·</em> <b>early access closing soon</b></div>
 
-<!-- NAV -->
 <nav>
   <div class="wrap nav-inner">
-    <div class="nav-left">
-      <a href="#what">what is twxn</a>
+    <a href="#top" class="nav-logo"><img src="assets/twxn-wordmark.png" alt="twxn" /></a>
+    <div class="nav-mid">
+      <a href="#what">what it is</a>
       <a href="#how">how it works</a>
+      <a href="#demo">try it</a>
+      <a href="#social">tiktok</a>
+      <a href="#community">community</a>
     </div>
-    <a href="#" class="logo">twxn</a>
-    <div class="nav-right">
-      <a href="https://twxn-waitlist.beehiiv.com/">join the waitlist</a>
-    </div>
+    <a href="https://twxn-waitlist.beehiiv.com/" class="nav-cta">join the waitlist</a>
   </div>
 </nav>
 
-<!-- HERO -->
-<header class="hero">
+<header class="hero" id="top">
   <div class="wrap hero-grid">
     <div>
-      <span class="label">the beauty matchmaker</span>
-      <h1>find your<br/><span class="italic">beauty twin</span>.</h1>
-      <p class="lead">matched to your skin, hair, and concerns. you only see what works.</p>
-      <div class="hero-cta">
+      <span class="eyebrow reveal">the beauty matchmaker</span>
+      <h1 class="reveal d1" style="margin-top:18px;">find your<br/><em>beauty twin</em>.</h1>
+      <p class="lead reveal d2">matched to people with your exact skin and hair, so you only see the skincare, haircare, and makeup that actually works for you.</p>
+      <div class="hero-cta reveal d3">
         <a href="https://twxn-waitlist.beehiiv.com/" class="btn">join the waitlist</a>
-        <span class="hero-note">early access closing soon</span>
+        <a href="#demo" class="btn btn-o">see how it works</a>
+      </div>
+      <div class="hero-meta reveal d4">
+        <div class="stack">
+          <img src="assets/twin-coily.jpg" alt="" />
+          <img src="assets/twin-straight.jpg" alt="" />
+          <img src="assets/twin-curly.jpg" alt="" />
+          <img src="assets/f-b.jpg" alt="" />
+        </div>
+        <p>every skin type, every hair type, <b>every undertone</b>.<br/>be one of the first to find yours.</p>
       </div>
     </div>
-    <div class="phone-stage">
+
+    <div class="stage reveal d2">
       <div class="phone">
-        <div class="phone-screen">
-          <div class="ps-label">your beauty twin</div>
-          <div class="ps-match">
-            <div class="pct">96%</div>
-            <div class="m">match</div>
+        <div class="notch"></div>
+        <div class="screen">
+          <div class="sc-top">
+            <img src="assets/twin-wavy.jpg" alt="your beauty twin" />
+            <div class="st">
+              <div class="a">your beauty twin</div>
+              <div class="b">same skin. same hair.</div>
+            </div>
+            <div class="sc-pct"><div class="n">96%</div><div class="m">match</div></div>
           </div>
-          <div class="ps-attrs">combination skin<br/>2b wavy hair · hormonal acne</div>
-          <div class="ps-rule"></div>
-          <div class="ps-hg">her holy grails</div>
-          <div class="ps-row"><div class="nm"><span class="ps-dot"></span>the cleanser</div><div class="sc">9.6</div></div>
-          <div class="ps-row"><div class="nm"><span class="ps-dot"></span>the serum</div><div class="sc">9.4</div></div>
-          <div class="ps-row"><div class="nm"><span class="ps-dot"></span>the spf</div><div class="sc">9.8</div></div>
+          <div class="tags"><span>combination</span><span>2b wavy</span><span>warm undertone</span><span>hormonal acne</span></div>
+          <div class="sc-lab">she rated well</div>
+          <div class="row"><div class="sw sw2"></div><div class="rt"><div class="a">the serum</div><div class="b">used 4 months</div></div><div class="chip good">9.4</div></div>
+          <div class="row"><div class="sw sw3"></div><div class="rt"><div class="a">the leave-in</div><div class="b">wash day staple</div></div><div class="chip good">9.6</div></div>
+          <div class="row"><div class="sw mk-warm"></div><div class="rt"><div class="a">the foundation</div><div class="b">warm 3, never ashy</div></div><div class="chip good">9.7</div></div>
+          <div class="sc-lab">she warns</div>
+          <div class="row"><div class="sw sw4"></div><div class="rt"><div class="a">the toner</div><div class="b">broke her out</div></div><div class="chip warn">skip</div></div>
         </div>
       </div>
     </div>
   </div>
 </header>
 
-<!-- WHAT TWXN DOES -->
-<section class="block intro" id="what">
+<div class="cats">
+  <div class="wrap">
+    <span>skincare</span><i></i><span>haircare</span><i></i><span>makeup</span>
+  </div>
+</div>
+
+<div class="marquee" aria-hidden="true">
+  <div class="mq-track">
+    <span>same skin</span><i></i><span>same hair</span><i></i><span>same undertone</span><i></i><span>same shade</span><i></i><span>same concerns</span><i></i><span>rated by people like you</span><i></i>
+    <span>same skin</span><i></i><span>same hair</span><i></i><span>same undertone</span><i></i><span>same shade</span><i></i><span>same concerns</span><i></i><span>rated by people like you</span><i></i>
+  </div>
+</div>
+
+<section class="block" id="what">
   <div class="wrap center">
-    <span class="label">what twxn is</span>
-    <p class="statement">the only recommendations that matter come from people <span class="italic">exactly like you</span>.</p>
-    <div class="match-wrap">
-      <div class="match-node"><div class="avatar"></div><span class="cap">you</span></div>
-      <div class="match-mid"><div class="match-pct">96%</div><span class="cap">match</span></div>
-      <div class="match-node"><div class="avatar"></div><span class="cap">your beauty twin</span></div>
+    <span class="eyebrow reveal">what twxn is</span>
+    <p class="statement reveal d1">the only recommendations that matter come from people <em>exactly like you</em>.</p>
+    <div class="mrow reveal d2">
+      <div class="mnode"><img src="assets/f-a.jpg" alt="you" /><span>you</span></div>
+      <div class="mmid"><div class="p">96%</div><div class="s">match</div></div>
+      <div class="mnode"><img src="assets/twin-curly.jpg" alt="your beauty twin" /><span>your beauty twin</span></div>
     </div>
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
-<section class="block" id="how">
+<section class="block" id="how" style="background:var(--off);">
   <div class="wrap">
     <div class="center">
-      <span class="label">how it works</span>
+      <span class="eyebrow reveal">how it works</span>
+      <h2 class="reveal d1">three steps. no guessing.</h2>
     </div>
-    <div class="trio">
-      <div class="tcell">
-        <svg class="ticon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="17" r="8"/><path d="M10 40c0-8 6.3-13 14-13s14 5 14 13"/></svg>
+    <div class="steps">
+      <div class="step reveal">
+        <div class="n">01</div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 21c0-4.4 3.6-7 8-7s8 2.6 8 7"/></svg>
         <h3>build your profile</h3>
-        <p>skin, hair, undertone, concerns.</p>
+        <p>your skin, your hair, your undertone, your shade, your concerns.</p>
       </div>
-      <div class="tcell">
-        <svg class="ticon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="22" r="8"/><circle cx="30" cy="22" r="8"/></svg>
-        <h3>meet your beauty twin</h3>
-        <p>matched to people exactly like you.</p>
+      <div class="step reveal d1">
+        <div class="n">02</div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="11" r="5"/><circle cx="15" cy="11" r="5"/></svg>
+        <h3>meet your beauty twins</h3>
+        <p>a whole community of people with your exact profile.</p>
       </div>
-      <div class="tcell">
-        <svg class="ticon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M13 17h22l-2 22H15z"/><path d="M19 17v-3a5 5 0 0 1 10 0v3"/><path d="M20 27l3 3 6-6"/></svg>
-        <h3>buy what works</h3>
-        <p>shop your twin's highest rated.</p>
+      <div class="step reveal d2">
+        <div class="n">03</div>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8h12l-1 12H7z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/><path d="M9.5 13.5l2 2 3.5-3.5"/></svg>
+        <h3>see what works</h3>
+        <p>the skincare, haircare, and makeup they rated well, and warnings on the ones they didn't.</p>
       </div>
     </div>
   </div>
 </section>
 
-<!-- WHY TWXN -->
-<section class="block why" id="why">
-  <div class="wrap qwrap">
-    <span class="label">why twxn</span>
-    <blockquote>we match you to people <span class="italic">like you</span>.</blockquote>
-    <p class="qsub">save your time, your money, and find the right products for you.</p>
+<section class="block demo" id="demo">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">try it</span>
+      <h2 class="reveal d1">build your profile. <em>meet your twin.</em></h2>
+      <p class="sub reveal d2">a preview of what happens inside twxn. pick yours and watch the match change.</p>
+    </div>
+    <div class="demo-grid">
+      <div class="reveal d1">
+        <div class="bgroup">
+          <div class="bl">01 &nbsp; your skin</div>
+          <div class="chips" data-group="skin">
+            <button type="button" data-val="dry" aria-pressed="false">dry</button>
+            <button type="button" data-val="oily" aria-pressed="false">oily</button>
+            <button type="button" data-val="combination" aria-pressed="true">combination</button>
+            <button type="button" data-val="sensitive" aria-pressed="false">sensitive</button>
+          </div>
+        </div>
+        <div class="bgroup">
+          <div class="bl">02 &nbsp; your hair</div>
+          <div class="chips" data-group="hair">
+            <button type="button" data-val="straight" aria-pressed="false">1 straight</button>
+            <button type="button" data-val="wavy" aria-pressed="true">2 wavy</button>
+            <button type="button" data-val="curly" aria-pressed="false">3 curly</button>
+            <button type="button" data-val="coily" aria-pressed="false">4 coily</button>
+          </div>
+        </div>
+        <div class="bgroup">
+          <div class="bl">03 &nbsp; your undertone</div>
+          <div class="chips" data-group="undertone">
+            <button type="button" data-val="cool" aria-pressed="false">cool</button>
+            <button type="button" data-val="neutral" aria-pressed="false">neutral</button>
+            <button type="button" data-val="warm" aria-pressed="true">warm</button>
+            <button type="button" data-val="olive" aria-pressed="false">olive</button>
+          </div>
+        </div>
+        <div class="bgroup">
+          <div class="bl">04 &nbsp; your main concern</div>
+          <div class="chips" data-group="concern">
+            <button type="button" data-val="acne" aria-pressed="true">breakouts</button>
+            <button type="button" data-val="spots" aria-pressed="false">dark spots</button>
+            <button type="button" data-val="dryness" aria-pressed="false">dryness</button>
+            <button type="button" data-val="frizz" aria-pressed="false">frizz</button>
+          </div>
+        </div>
+        <p class="bnote">in the app, your real profile goes deeper. this is the short version.</p>
+      </div>
+
+      <div class="result reveal d2" id="result">
+        <div class="res-head">
+          <img class="res-face" id="resFace" src="assets/twin-wavy.jpg" alt="your beauty twin" />
+          <div class="rh">
+            <div class="rl">your beauty twin</div>
+            <div class="rn" id="resName">same skin. same hair.</div>
+          </div>
+          <div class="res-pct"><div class="p" id="resPct">96%</div><div class="s">match</div></div>
+        </div>
+        <div class="res-tags" id="resTags"></div>
+        <div class="res-sec">skincare + haircare she rated well</div>
+        <div id="resGood"></div>
+        <div class="res-sec">makeup matched to your undertone</div>
+        <div id="resMakeup"></div>
+        <div class="res-sec">she warns</div>
+        <div id="resBad"></div>
+        <div class="res-foot">
+          <p id="resNote">your twin already tested these, so you don't have to.</p>
+          <a href="https://twxn-waitlist.beehiiv.com/" class="btn" style="padding:13px 26px;font-size:13.5px;">find mine</a>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
+<section class="block" id="community">
+  <div class="wrap comm-grid">
+    <div class="comm-copy">
+      <span class="eyebrow reveal">your beauty twins</span>
+      <h2 class="reveal d1" style="margin-top:16px;">not one match.<br/><em>a whole community.</em></h2>
+      <p class="reveal d2">you don't just find one person. you find everyone with your exact skin and hair, already rating what works and warning you off what doesn't.</p>
+      <div class="comm-stats reveal d3">
+        <div><div class="k">skin</div><div class="v">type, concerns, sensitivity</div></div>
+        <div><div class="k">hair</div><div class="v">texture, porosity, goals</div></div>
+        <div><div class="k">makeup</div><div class="v">undertone, shade, finish</div></div>
+      </div>
+    </div>
+    <div class="cluster reveal d2">
+      <div class="face"><img src="assets/twin-coily.jpg" alt="" /><span class="badge">92%</span></div>
+      <div class="face hl"><img src="assets/twin-wavy.jpg" alt="" /><span class="badge">96%</span></div>
+      <div class="face"><img src="assets/twin-straight.jpg" alt="" /><span class="badge">94%</span></div>
+      <div class="face"><img src="assets/twin-curly.jpg" alt="" /><span class="badge">90%</span></div>
+      <div class="face"><img src="assets/f-b.jpg" alt="" /><span class="badge">93%</span></div>
+      <div class="face"><img src="assets/f-a.jpg" alt="" /><span class="badge">91%</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="block social" id="social">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">from our tiktok</span>
+      <h2 class="reveal d1">your routine, <em>before and after</em>.</h2>
+    </div>
+    <div class="social-grid">
+      <div class="vphone reveal d1">
+        <div class="vnotch"></div>
+        <video src="assets/social/clip-1.mp4" poster="assets/social/clip-1-poster.jpg"
+               muted autoplay loop playsinline preload="metadata"
+               aria-label="a twxn tiktok showing a beauty routine before and after"></video>
+      </div>
+      <div class="social-copy reveal d2">
+        <p>this is what changes. instead of a bag of products picked from random recommendations, you get a shelf that was matched to your skin, your hair, and your undertone.</p>
+        <p>we post real routines, real product breakdowns, and real matches on tiktok.</p>
+        <div class="tiles">
+          <div class="tile"><img src="assets/social/tiktok-1.jpg" alt="twxn tiktok post about products for sensitive dry skin" loading="lazy" /></div>
+          <div class="tile"><img src="assets/social/tiktok-2.jpg" alt="twxn tiktok post about makeup for acne prone and oily skin" loading="lazy" /></div>
+        </div>
+        <a class="social-link" href="https://www.tiktok.com/@twxn.app" target="_blank" rel="noopener">watch more on tiktok</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block why center">
+  <div class="wrap">
+    <span class="eyebrow reveal">why twxn</span>
+    <h2 class="reveal d1">products for people <em>like you</em>. recommended by people <em>like you</em>.</h2>
+    <p class="sub reveal d2">no more strangers. no more influencers with nothing like your skin. no more guessing.</p>
+  </div>
+</section>
+
+<section class="block">
+  <div class="wrap">
+    <div class="center">
+      <span class="eyebrow reveal">what you get</span>
+      <h2 class="reveal d1">less wasted money. <em>more you.</em></h2>
+    </div>
+    <div class="vals">
+      <div class="val reveal"><h4>save money</h4><p>stop buying products that were never made for you.</p></div>
+      <div class="val reveal d1"><h4>save time</h4><p>skip the endless scrolling and months of trial and error.</p></div>
+      <div class="val reveal d2"><h4>feel confident</h4><p>when every product is right for you, you look and feel your best.</p></div>
+    </div>
+  </div>
+</section>
+
 <section class="block final">
   <div class="wrap">
-    <span class="label">join early</span>
-    <h2>your beauty twin is<br/><span class="italic">already out there</span>.</h2>
-    <p class="lead-c">be among the first to find them.</p>
-    <a href="https://twxn-waitlist.beehiiv.com/" class="btn">join the waitlist</a>
+    <h2 class="reveal">your beauty twin is <em>already out there</em>.</h2>
+    <p class="sub reveal d1">be among the first to find them. early access is closing soon.</p>
+    <div class="reveal d2"><a href="https://twxn-waitlist.beehiiv.com/" class="btn">join the waitlist</a></div>
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <div class="wrap">
     <div class="foot-top">
       <div>
-        <div class="foot-logo">twxn</div>
-        <p class="foot-tag">beauty, finally matched to you.</p>
+        <div class="foot-logo"><img src="assets/twxn-wordmark-white.png" alt="twxn" /></div>
+        <p class="foot-tag">the future of beauty shopping. finally matched to you.</p>
       </div>
       <div class="foot-cols">
         <div class="foot-col">
-          <h4>explore</h4>
-          <a href="#what">what is twxn</a>
+          <h5>explore</h5>
+          <a href="#what">what it is</a>
           <a href="#how">how it works</a>
-          <a href="https://twxn-waitlist.beehiiv.com/">join the waitlist</a>
+          <a href="#demo">try it</a>
+          <a href="#community">community</a>
         </div>
         <div class="foot-col">
-          <h4>follow</h4>
-          <a href="https://www.tiktok.com/@twxn.app" target="_blank">tiktok</a>
-          <a href="https://www.instagram.com/" target="_blank">instagram</a>
+          <h5>follow</h5>
+          <a href="https://www.tiktok.com/@twxn.app" target="_blank" rel="noopener">tiktok</a>
+          <a href="https://www.instagram.com/twxn.app" target="_blank" rel="noopener">instagram</a>
         </div>
         <div class="foot-col">
-          <h4>contact</h4>
+          <h5>contact</h5>
           <a href="mailto:support@twxnapp.com">support@twxnapp.com</a>
         </div>
       </div>
     </div>
-    <div class="foot-bottom">
+    <div class="foot-bot">
       <span>© 2026 Twxn LLC. all rights reserved.</span>
       <span>made for people who are tired of guessing.</span>
     </div>
   </div>
 </footer>
+
+<script>
+  (function(){
+    var els=[].slice.call(document.querySelectorAll('.reveal'));
+    function show(e){e.classList.add('in');}
+    function inView(e){var r=e.getBoundingClientRect();return r.top<window.innerHeight*0.94&&r.bottom>0;}
+    els.forEach(function(e){if(inView(e))show(e);});
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){show(x.target);io.unobserve(x.target);}});},{threshold:0.1,rootMargin:'0px 0px -5% 0px'});
+      els.forEach(function(e){if(!e.classList.contains('in'))io.observe(e);});
+    } else { els.forEach(show); }
+    setTimeout(function(){els.forEach(show);},1600);
+  })();
+
+  (function(){
+    var state={skin:'combination',hair:'wavy',undertone:'warm',concern:'acne'};
+    var hairLabel={straight:'1 straight',wavy:'2b wavy',curly:'3b curly',coily:'4c coily'};
+    var concernLabel={acne:'breakouts',spots:'dark spots',dryness:'dryness',frizz:'frizz'};
+
+    /* makeup is matched on undertone, so it gets its own set */
+    var makeupBy={
+      cool:[['mk-cool','the foundation','cool 2, no orange pull','9.5'],
+            ['mk-berry','the blush','cool berry, not muddy','9.4']],
+      neutral:[['mk-neutral','the foundation','neutral 3, disappears','9.6'],
+               ['mk-rose','the blush','soft rose, buildable','9.3']],
+      warm:[['mk-warm','the foundation','warm 3, never ashy','9.7'],
+            ['mk-peach','the blush','warm peach, glowy','9.5']],
+      olive:[['mk-olive','the foundation','olive 4, finally not pink','9.8'],
+             ['mk-terra','the blush','warm terracotta','9.4']]
+    };
+    var faceByHair={straight:'twin-straight.jpg',wavy:'twin-wavy.jpg',curly:'twin-curly.jpg',coily:'twin-coily.jpg'};
+    var skinIdx={dry:0,oily:1,combination:2,sensitive:3};
+    var hairIdx={straight:0,wavy:1,curly:2,coily:3};
+
+    var goodBy={
+      acne:[['sw2','the gentle cleanser','used 5 months','9.6'],['sw3','the spf','no white cast','9.8'],['sw1','the niacinamide serum','calmed texture','9.3']],
+      spots:[['sw1','the vitamin c serum','8 weeks in','9.5'],['sw3','the spf','daily, no pilling','9.9'],['sw2','the retinal night cream','faded marks','9.2']],
+      dryness:[['sw2','the cream cleanser','never tight','9.4'],['sw1','the ceramide moisturizer','holy grail','9.8'],['sw4','the overnight mask','plump by morning','9.5']],
+      frizz:[['sw4','the leave-in','defined, not crunchy','9.7'],['sw2','the bond repair mask','weekly','9.4'],['sw3','the heat protectant','no residue','9.3']]
+    };
+    var badBy={
+      acne:['sw4','the exfoliating toner','broke her out'],
+      spots:['sw4','the brightening peel','left her red'],
+      dryness:['sw3','the foaming cleanser','stripped her skin'],
+      frizz:['sw1','the heavy oil','weighed her curls down']
+    };
+    var noteBy={
+      acne:'your twin has your skin, so her breakout triggers are yours too.',
+      spots:'same undertone, so her results are what you would actually see.',
+      dryness:'she stopped guessing on moisturizers. you can skip to the end.',
+      frizz:'same curl pattern, so her wash day routine translates to yours.'
+    };
+
+    var elFace=document.getElementById('resFace'),elName=document.getElementById('resName'),
+        elPct=document.getElementById('resPct'),elTags=document.getElementById('resTags'),
+        elGood=document.getElementById('resGood'),elBad=document.getElementById('resBad'),
+        elMakeup=document.getElementById('resMakeup'),
+        elNote=document.getElementById('resNote'),card=document.getElementById('result');
+    if(!card) return;
+
+    function row(sw,t,s,sc){
+      return '<div class="res-row"><div class="res-sw '+sw+'"></div><div class="rt"><div class="a">'+t+'</div><div class="b">'+s+'</div></div>'+
+             (sc?'<div class="chip good">'+sc+'</div>':'<div class="chip warn">skip</div>')+'</div>';
+    }
+    function render(anim){
+      elFace.src='assets/'+faceByHair[state.hair];
+      elName.textContent=state.skin+' skin. '+hairLabel[state.hair]+'.';
+      elPct.textContent=(90+((skinIdx[state.skin]+hairIdx[state.hair]*2)%8))+'%';
+      elTags.innerHTML=['<span>'+state.skin+'</span>','<span>'+hairLabel[state.hair]+'</span>',
+        '<span>'+state.undertone+' undertone</span>','<span>'+concernLabel[state.concern]+'</span>'].join('');
+      elGood.innerHTML=goodBy[state.concern].map(function(r){return row(r[0],r[1],r[2],r[3]);}).join('');
+      elMakeup.innerHTML=makeupBy[state.undertone].map(function(r){return row(r[0],r[1],r[2],r[3]);}).join('');
+      var b=badBy[state.concern];
+      elBad.innerHTML=row(b[0],b[1],b[2],null);
+      elNote.textContent=noteBy[state.concern];
+      if(anim){card.classList.remove('fade-swap');void card.offsetWidth;card.classList.add('fade-swap');}
+    }
+    document.querySelectorAll('.chips').forEach(function(g){
+      var key=g.getAttribute('data-group');
+      g.addEventListener('click',function(e){
+        var b=e.target.closest('button'); if(!b) return;
+        g.querySelectorAll('button').forEach(function(x){x.setAttribute('aria-pressed','false');});
+        b.setAttribute('aria-pressed','true');
+        state[key]=b.getAttribute('data-val');
+        render(true);
+      });
+    });
+    render(false);
+  })();
+</script>
 
 </body>
 </html>
